@@ -1,19 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portal Saya</title>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
-    a.card { display: block; padding: 16px; margin: 12px 0; border: 1px solid #ccc;
-             border-radius: 10px; text-decoration: none; color: inherit; }
-    a.card:hover { background: #f3f3f3; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>andrecool | Portal Aplikasi</title>
+<meta name="theme-color" content="#12263F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E8EDF3; --ink:#12263F; --muted:#51647A; --tag:#FFC83D; --tag-ink:#1B1600;
+  --panel:#FFFFFF; --line:#C9D3DF; --focus:#0B5FFF;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#0E1B2C; --ink:#EAF0F7; --muted:#9FB0C4; --tag:#FFC83D; --tag-ink:#1B1600;
+    --panel:#162A42; --line:#27405C; --focus:#7FB0FF; }
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh; background:var(--bg); color:var(--ink);
+  font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.5; padding:clamp(20px,5vw,64px);
+}
+.wrap{max-width:960px;margin:0 auto}
+header{padding:clamp(16px,6vw,72px) 0 clamp(28px,5vw,56px)}
+h1{
+  font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  font-weight:800; font-size:clamp(3rem,13vw,8rem); line-height:.9; letter-spacing:-.04em;
+}
+h1 span{color:var(--muted);font-weight:500}
+header p{margin-top:20px;max-width:46ch;color:var(--muted);font-size:1.1rem}
+
+.shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.tag{
+  position:relative; display:flex; flex-direction:column; gap:10px;
+  background:var(--tag); color:var(--tag-ink); text-decoration:none;
+  padding:56px 24px 24px; border-radius:6px 6px 22px 22px; min-height:230px;
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
+  box-shadow:0 1px 0 rgba(0,0,0,.08),0 14px 28px -14px rgba(18,38,63,.45);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.tag::before{ /* lubang gantungan label harga */
+  content:""; position:absolute; top:20px; left:24px; width:18px; height:18px;
+  border-radius:50%; background:var(--bg); box-shadow:inset 0 2px 3px rgba(0,0,0,.25);
+}
+.tag:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 22px 34px -16px rgba(18,38,63,.55)}
+.tag:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.tag h2{
+  font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  font-size:1.9rem; line-height:1.05; letter-spacing:-.02em; font-weight:800;
+}
+.tag p{font-size:1rem;opacity:.85;max-width:30ch}
+.tag .go{
+  margin-top:auto; align-self:flex-start; font-weight:600;
+  background:var(--tag-ink); color:var(--tag); padding:9px 16px; border-radius:999px; font-size:.95rem;
+}
+footer{margin-top:clamp(36px,6vw,72px);padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+
+/* animasi satu kali saat halaman dibuka: label "digantung" satu per satu */
+@keyframes hang{from{opacity:0;transform:translateY(-14px) rotate(-3deg)}to{opacity:1;transform:none}}
+.tag{animation:hang .55s cubic-bezier(.2,.8,.2,1) both}
+.tag:nth-child(2){animation-delay:.1s}
+.tag:nth-child(3){animation-delay:.2s}
+.tag:nth-child(4){animation-delay:.3s}
+@media (prefers-reduced-motion:reduce){.tag{animation:none}.tag:hover{transform:none}}
+</style>
 </head>
 <body>
-  <h1>Portal Saya</h1>
-  <a class="card" href="/jadwal/">📅 Jadwal Shift</a>
-  <a class="card" href="/sales/">📊 Dashboard Sales</a>
+<div class="wrap">
+  <header>
+    <h1>andre<span>cool</span></h1>
+    <p>Kumpulan aplikasi kerja harian saya. Pilih satu untuk membuka.</p>
+  </header>
+
+  <main class="shelf">
+    <!-- Untuk menambah aplikasi: salin satu blok <a class="tag"> di bawah, lalu ganti href, judul, dan deskripsinya -->
+    <a class="tag" href="/jadwal/">
+      <h2>Jadwal Shift</h2>
+      <p>Jadwal shift tim Fantastic 4. Bisa dipasang di layar HP.</p>
+      <span class="go">Buka jadwal</span>
+    </a>
+
+    <a class="tag" href="/sales/">
+      <h2>Dashboard Sales</h2>
+      <p>Laporan penjualan harian per SKU, otomatis dari spreadsheet.</p>
+      <span class="go">Buka dashboard</span>
+    </a>
+  </main>
+
+  <footer>andrecool.my.id</footer>
+</div>
 </body>
 </html>
