@@ -4,98 +4,119 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>andrecool | Portal Aplikasi</title>
-<meta name="theme-color" content="#12263F">
+<meta name="theme-color" content="#0B3C5D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Alegreya:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#E8EDF3; --ink:#12263F; --muted:#51647A; --tag:#FFC83D; --tag-ink:#1B1600;
-  --panel:#FFFFFF; --line:#C9D3DF; --focus:#0B5FFF;
-}
-@media (prefers-color-scheme:dark){
-  :root{ --bg:#0E1B2C; --ink:#EAF0F7; --muted:#9FB0C4; --tag:#FFC83D; --tag-ink:#1B1600;
-    --panel:#162A42; --line:#27405C; --focus:#7FB0FF; }
+  --sea:#0B3C5D; --sea2:#1D6A96; --paper:#EAD7A8; --paper2:#DCC48C;
+  --ink:#3B2412; --red:#B3261E; --gold:#E0A526; --focus:#FFFFFF;
 }
 *{box-sizing:border-box;margin:0}
-html{-webkit-text-size-adjust:100%}
 body{
-  min-height:100vh; background:var(--bg); color:var(--ink);
-  font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  line-height:1.5; padding:clamp(20px,5vw,64px);
+  min-height:100vh; color:var(--ink); background:var(--paper);
+  font-family:"Alegreya",Georgia,serif; font-size:1.1rem; line-height:1.45;
 }
-.wrap{max-width:960px;margin:0 auto}
-header{padding:clamp(16px,6vw,72px) 0 clamp(28px,5vw,56px)}
+header{
+  background:linear-gradient(180deg,var(--sea) 0%,var(--sea2) 100%);
+  color:#F7EBCB; text-align:center; padding:clamp(28px,6vw,64px) 20px 0;
+}
+.flag{width:clamp(76px,16vw,120px);height:auto;display:block;margin:0 auto 10px}
 h1{
-  font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
-  font-weight:800; font-size:clamp(3rem,13vw,8rem); line-height:.9; letter-spacing:-.04em;
+  font-family:"Pirata One","Impact",system-ui,sans-serif; font-weight:400;
+  font-size:clamp(3.2rem,12vw,6.5rem); line-height:1; letter-spacing:.01em;
+  text-shadow:0 3px 0 rgba(0,0,0,.28);
 }
-h1 span{color:var(--muted);font-weight:500}
-header p{margin-top:20px;max-width:46ch;color:var(--muted);font-size:1.1rem}
+header p{margin-top:8px;font-size:1.25rem;opacity:.9}
+.waves{display:block;width:100%;height:clamp(40px,8vw,90px);margin-top:18px}
 
-.shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.tag{
-  position:relative; display:flex; flex-direction:column; gap:10px;
-  background:var(--tag); color:var(--tag-ink); text-decoration:none;
-  padding:56px 24px 24px; border-radius:6px 6px 22px 22px; min-height:230px;
-  clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
-  box-shadow:0 1px 0 rgba(0,0,0,.08),0 14px 28px -14px rgba(18,38,63,.45);
-  transition:transform .18s ease, box-shadow .18s ease;
+main{
+  max-width:1000px; margin:0 auto; padding:clamp(24px,5vw,48px) 20px 24px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:clamp(20px,4vw,34px);
 }
-.tag::before{ /* lubang gantungan label harga */
-  content:""; position:absolute; top:20px; left:24px; width:18px; height:18px;
-  border-radius:50%; background:var(--bg); box-shadow:inset 0 2px 3px rgba(0,0,0,.25);
+.poster{
+  position:relative; display:flex; flex-direction:column; text-align:center; text-decoration:none; color:var(--ink);
+  background:var(--paper2); padding:18px 18px 22px; border:3px solid var(--ink);
+  box-shadow:6px 8px 0 rgba(59,36,18,.35);
+  background-image:radial-gradient(rgba(59,36,18,.07) 1px,transparent 1.5px); background-size:7px 7px;
+  transition:transform .2s ease, box-shadow .2s ease;
 }
-.tag:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 22px 34px -16px rgba(18,38,63,.55)}
-.tag:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
-.tag h2{
-  font-family:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
-  font-size:1.9rem; line-height:1.05; letter-spacing:-.02em; font-weight:800;
+.poster:nth-child(odd){transform:rotate(-1.2deg)}
+.poster:nth-child(even){transform:rotate(1deg)}
+.poster:hover{transform:rotate(0) translateY(-6px);box-shadow:8px 14px 0 rgba(59,36,18,.35)}
+.poster:focus-visible{outline:4px solid var(--sea);outline-offset:4px}
+.wanted{
+  font-family:"Pirata One","Impact",system-ui,sans-serif; font-size:3rem; line-height:1; letter-spacing:.04em;
 }
-.tag p{font-size:1rem;opacity:.85;max-width:30ch}
-.tag .go{
-  margin-top:auto; align-self:flex-start; font-weight:600;
-  background:var(--tag-ink); color:var(--tag); padding:9px 16px; border-radius:999px; font-size:.95rem;
+.photo{
+  position:relative; aspect-ratio:4/3; margin:8px 0 12px; border:3px solid var(--ink);
+  background:linear-gradient(180deg,#F3E5BE,#D9BF86); display:grid; place-items:center; overflow:hidden;
 }
-footer{margin-top:clamp(36px,6vw,72px);padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
-
-/* animasi satu kali saat halaman dibuka: label "digantung" satu per satu */
-@keyframes hang{from{opacity:0;transform:translateY(-14px) rotate(-3deg)}to{opacity:1;transform:none}}
-.tag{animation:hang .55s cubic-bezier(.2,.8,.2,1) both}
-.tag:nth-child(2){animation-delay:.1s}
-.tag:nth-child(3){animation-delay:.2s}
-.tag:nth-child(4){animation-delay:.3s}
-@media (prefers-reduced-motion:reduce){.tag{animation:none}.tag:hover{transform:none}}
+.photo .fb{font-size:4.5rem;opacity:.85}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster h2{font-family:"Pirata One","Impact",system-ui,sans-serif;font-weight:400;font-size:2.1rem;line-height:1.05}
+.poster p{margin:4px auto 10px;max-width:28ch}
+.bounty{
+  font-weight:700; font-size:1.2rem; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+  padding:4px 0; margin-bottom:14px;
+}
+.go{
+  margin-top:auto; align-self:center; background:var(--red); color:#FFF3DA; font-weight:700;
+  padding:8px 22px; border:2px solid var(--ink); border-radius:4px; box-shadow:0 3px 0 var(--ink);
+}
+footer{text-align:center;padding:10px 20px 40px;font-size:1rem;opacity:.75}
+@media (prefers-reduced-motion:reduce){.poster,.poster:hover{transition:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>andre<span>cool</span></h1>
-    <p>Kumpulan aplikasi kerja harian saya. Pilih satu untuk membuka.</p>
-  </header>
+<header>
+  <!-- Bendera bajak laut orisinal (tengkorak sederhana) -->
+  <svg class="flag" viewBox="0 0 120 120" role="img" aria-label="Bendera bajak laut">
+    <rect x="4" y="4" width="112" height="112" rx="6" fill="#14202B"/>
+    <g stroke="#F7EBCB" stroke-width="7" stroke-linecap="round"><path d="M26 88 94 38M94 88 26 38"/></g>
+    <ellipse cx="60" cy="56" rx="24" ry="22" fill="#F7EBCB"/>
+    <rect x="48" y="68" width="24" height="16" rx="4" fill="#F7EBCB"/>
+    <circle cx="50" cy="54" r="6" fill="#14202B"/><circle cx="70" cy="54" r="6" fill="#14202B"/>
+    <path d="M60 62 56 70h8z" fill="#14202B"/>
+  </svg>
+  <h1>andrecool</h1>
+  <p>Pilih tujuanmu, kapten.</p>
+  <svg class="waves" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40c100 40 200-40 300 0s200 40 300 0 200-40 300 0 200 40 300 0v50H0z" fill="#EAD7A8"/>
+  </svg>
+</header>
 
-  <main class="shelf">
-  <a class="tag" href="/jadwal/">
+<main>
+  <!-- Untuk menambah aplikasi: salin satu blok <a class="poster">, lalu ganti href, judul, deskripsi, dan nama file gambar -->
+  <a class="poster" href="/jadwal/">
+    <div class="wanted">WANTED</div>
+    <div class="photo"><span class="fb" aria-hidden="true">📅</span><img src="images/jadwal.png" alt="" onerror="this.remove()"></div>
     <h2>Jadwal Shift</h2>
     <p>Jadwal shift tim Fantastic 4. Bisa dipasang di layar HP.</p>
+    <div class="bounty">Hadiah 1.000.000.000</div>
     <span class="go">Buka jadwal</span>
   </a>
 
-  <a class="tag" href="/jadwal-agl/">
+  <a class="poster" href="/jadwal-agl/">
+    <div class="wanted">WANTED</div>
+    <div class="photo"><span class="fb" aria-hidden="true">🗓️</span><img src="images/jadwal-agl.png" alt="" onerror="this.remove()"></div>
     <h2>Jadwal AGL</h2>
     <p>Jadwal harian AGL.</p>
+    <div class="bounty">Hadiah 500.000.000</div>
     <span class="go">Buka jadwal AGL</span>
   </a>
 
-  <a class="tag" href="/data-sales/">
+  <a class="poster" href="/data-sales/">
+    <div class="wanted">WANTED</div>
+    <div class="photo"><span class="fb" aria-hidden="true">📊</span><img src="images/data-sales.png" alt="" onerror="this.remove()"></div>
     <h2>Dashboard Sales</h2>
     <p>Laporan penjualan harian per SKU, otomatis dari spreadsheet.</p>
+    <div class="bounty">Hadiah 1.500.000.000</div>
     <span class="go">Buka dashboard</span>
   </a>
-  </main>
+</main>
 
-  <footer>andrecool.my.id</footer>
-</div>
+<footer>andrecool.my.id</footer>
 </body>
 </html>
