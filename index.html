@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>andrecool | Portal Aplikasi</title>
 <meta name="theme-color" content="#0B3C5D">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -73,6 +73,25 @@ main{
   padding:8px 22px; border:2px solid var(--ink); border-radius:4px; box-shadow:0 3px 0 var(--ink);
 }
 footer{text-align:center;padding:10px 20px 40px;font-size:1rem;opacity:.75}
+/* ---- Penyesuaian layar HP ---- */
+html,body{overflow-x:hidden}
+body{-webkit-tap-highlight-color:transparent}
+header{padding-top:calc(clamp(28px,6vw,64px) + env(safe-area-inset-top,0px))}
+main{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+footer{padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.go{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+@media (max-width:600px){
+  main{grid-template-columns:1fr;gap:22px;padding-top:20px}
+  .poster:nth-child(odd),.poster:nth-child(even){transform:none}
+  .poster{padding:14px 14px 18px;box-shadow:4px 6px 0 rgba(59,36,18,.35)}
+  .poster:hover{transform:none;box-shadow:4px 6px 0 rgba(59,36,18,.35)}
+  .poster:active{transform:translateY(3px);box-shadow:1px 3px 0 rgba(59,36,18,.35)}
+  .wanted{font-size:2.4rem}
+  .photo{aspect-ratio:16/9}
+  .poster h2{font-size:1.9rem}
+  .go{align-self:stretch}
+  header p{font-size:1.1rem}
+}
 @media (prefers-reduced-motion:reduce){.poster,.poster:hover{transition:none}}
 </style>
 </head>
@@ -122,9 +141,55 @@ footer{text-align:center;padding:10px 20px 40px;font-size:1rem;opacity:.75}
     <div class="bounty">Hadiah 1.500.000.000</div>
     <span class="go">Buka dashboard</span>
   </a>
+
+  <a class="poster" href="/GROSS-PROFIT/">
+    <div class="wanted">WANTED</div>
+    <div class="photo"><span class="fb" aria-hidden="true">💰</span><img src="images/gross-profit.png" alt="" onerror="this.remove()"></div>
+    <h2>Gross Profit</h2>
+    <p>Perhitungan dan laporan gross profit.</p>
+    <div class="bounty">Hadiah 2.000.000.000</div>
+    <span class="go">Buka gross profit</span>
+  </a>
 </main>
 
 <footer>andrecool.my.id</footer>
+<script>
+/* Otomatis menambah kartu untuk repo GitHub lain yang Pages-nya aktif.
+   Kartu yang sudah ditulis manual di atas tidak digandakan. */
+(function () {
+  var USER = 'arecoolandre-ship-it';
+  var main = document.querySelector('main');
+  var known = [].map.call(main.querySelectorAll('a.poster'), function (a) {
+    return a.getAttribute('href').replace(/\//g, '').toLowerCase();
+  });
+  fetch('https://api.github.com/users/' + USER + '/repos?per_page=100&sort=updated')
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (repos) {
+      repos.filter(function (r) {
+        return r.has_pages && !r.fork && !r.archived &&
+          r.name.toLowerCase() !== USER + '.github.io' &&
+          known.indexOf(r.name.toLowerCase()) < 0;
+      }).forEach(function (r) {
+        var sum = 0; for (var i = 0; i < r.name.length; i++) sum += r.name.charCodeAt(i);
+        var bounty = ((sum % 9) + 1) * 150 + '.000.000';
+        var a = document.createElement('a');
+        a.className = 'poster'; a.href = '/' + r.name + '/';
+        a.innerHTML = '<div class="wanted">WANTED</div>' +
+          '<div class="photo"><span class="fb" aria-hidden="true">\ud83e\udded</span></div>' +
+          '<h2></h2><p></p><div class="bounty"></div><span class="go">Buka aplikasi</span>';
+        a.querySelector('h2').textContent = r.name.replace(/[-_]+/g, ' ');
+        a.querySelector('p').textContent = r.description || 'Aplikasi buatan andrecool.';
+        a.querySelector('.bounty').textContent = 'Hadiah ' + bounty;
+        var img = document.createElement('img');
+        img.src = 'images/' + r.name + '.png'; img.alt = '';
+        img.onerror = function () { img.remove(); };
+        a.querySelector('.photo').appendChild(img);
+        main.appendChild(a);
+      });
+    })
+    .catch(function () {});
+})();
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
